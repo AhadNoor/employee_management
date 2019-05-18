@@ -122,9 +122,12 @@ class EmployeeController extends AbstractController
     /**
      * @Route("/employee/delete/{id}", name="delete_employee", methods={"DELETE|GET"})
      */
-    public function delete(Request $request, Employee $employee, EntityManagerInterface $entityManager): Response
+    public function delete(Employee $employee, EntityManagerInterface $entityManager): Response
     {
+        $entityManager->remove($employee);
+        $entityManager->flush();
 
+        return $this->redirectToRoute('app_home');
     }
 
     /**
