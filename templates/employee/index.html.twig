@@ -1,0 +1,95 @@
+{% extends 'emp_base.html.twig' %}
+
+{% block title %} Employees {% endblock %}
+
+{% block body %}
+    {# total items count #}
+    <h4 class="header">Employee List</h4>
+    <p>
+        <a href="{{ path('new_employee') }}">Create new employee</a>
+    </p>
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_start(searchForm) }}
+
+            <div class="form-row align-items-center">
+                <div class="col-auto">
+                    <label for="employee_search_name" class="sr-only">{{ form_label(searchForm.name) }}</label>
+                    {{ form_widget(searchForm.name) }}
+                </div>
+                <div class="col-auto">
+                    <label for="employee_search_name" class="sr-only">{{ form_label(searchForm.age) }}</label>
+                    {{ form_widget(searchForm.age) }}
+                </div>
+
+                <div class="col-auto">
+                    {{ form_widget(searchForm.submit) }}
+                </div>
+                <div class="col-auto">
+                    <button type="button" id="employee_search_reset" onclick="window.location='/';"
+                            class="btn btn-primary btn">Reset
+                    </button>
+                </div>
+            </div>
+            {{ form_end(searchForm) }}
+            <p>&nbsp;</p>
+        </div>
+    </div>
+
+    {% if employees %}
+        <div class="table-responsive">
+            <table class="table table-striped employee-table">
+                <thead>
+                <tr>
+                    <th>Employee Name</th>
+                    <th>Desgnation</th>
+                    <th>Date of Birth</th>
+                    <th>Contact No</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for employee in pagination %}
+                    <tr>
+                        <td>{{ employee.name }}</td>
+                        <td>{{ employee.designation }}</td>
+                        <td>{{ employee.dateOfBirth|date("d/m/Y") }}</td>
+                        <td>{{ employee.contactNo }}</td>
+
+                        <td>
+                            <a href="{{ path('show_employee', {'id': employee.id}) }}" class="btn btn-dark">Show</a>
+
+                            <a href="{{ path('update_employee', {'id': employee.id}) }}" class="btn btn-info">Update</a>
+
+
+                            <a href="{{ path('delete_employee', {'id': employee.id}) }}" class="btn btn-danger"
+                               onclick="return confirm('Are you sure you want to delete this employee?');">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {# display navigation #}
+        <div class="navigation">
+            <div class="row">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ knp_pagination_render(pagination) }}
+                        </div>
+                        <div class="col-md-6 text-right">
+                            Total <strong>{{ pagination.getTotalItemCount }}</strong> records found.
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    {% else %}
+        <p>No employee found!</p>
+    {% endif %}
+
+{% endblock %}
