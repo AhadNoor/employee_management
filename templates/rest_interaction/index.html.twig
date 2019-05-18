@@ -1,0 +1,50 @@
+{% extends 'emp_base.html.twig' %}
+
+{% block title %}Hello RestInteractionController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+
+<h4>Consume Data from 3rd Party REST API</h4>
+{% if api_data.interactionTypeGroup is defined %}
+    {% if api_data.interactionTypeGroup[0].sourceDisclaimer is defined %}
+        <p class="about">
+            {{ api_data.interactionTypeGroup[0].sourceDisclaimer }}
+        </p>
+    {% endif %}
+
+    {% if api_data.interactionTypeGroup[0].interactionType[0].interactionPair is defined %}
+        {% set data = api_data.interactionTypeGroup[0].interactionType[0].interactionPair %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Interaction Concept</th>
+                        <th>Severity</th>
+                        <th>Description</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in 0..10 %}
+                        <tr>
+                            <td>{{ data[i].interactionConcept |json_encode() }}</td>
+                            <td> {{ data[i].severity }}</td>
+                            <td> {{ data[i].description }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    {% endif %}
+
+{% else %}
+    <p> Not a valid response</p>
+{% endif %}
+
+{% endblock %}
