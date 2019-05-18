@@ -1,0 +1,34 @@
+{% extends 'emp_base.html.twig' %}
+
+{% block title%} Gender-wise Employee Report {% endblock %}
+
+{% block body %}
+
+    <h4 class="header">Gender-wise Employee Report</h4>
+    {% if genderwise_employee_count %}
+
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>Gender</th>
+                    <th>Employee Count</th>
+                </tr>
+                </thead>
+                <tbody>
+                {%  for employee_count in genderwise_employee_count %}
+                    <tr>
+
+                        <td>{{ employee_count.gender }}</td>
+                        <td>{{ employee_count.employee_count }}</td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>No Record Found!</p>
+    {% endif %}
+
+{% endblock %}

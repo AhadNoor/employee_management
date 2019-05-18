@@ -135,6 +135,13 @@ class EmployeeController extends AbstractController
      */
     public function report(EmployeeRepository $employeeRepository)
     {
+        $genderwise_employee_count = $employeeRepository->getGenderwiseReport();
 
+        return $this->render(
+            'employee/report.html.twig',
+            [
+                'genderwise_employee_count' => $genderwise_employee_count,
+            ]
+        );
     }
 }
