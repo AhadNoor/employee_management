@@ -1,0 +1,42 @@
+{% extends 'emp_base.html.twig' %}
+
+{% block title%}Edit Article {% endblock %}
+
+{% block body %}
+    <h4 class="header">Update employee information</h4>
+
+
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.designation) }}
+    {{ form_row(form.gender) }}
+    {{ form_row(form.date_of_birth) }}
+    {{ form_row(form.contact_no) }}
+
+    <div class="form-group row">
+        <label class="col-form-label col-sm-5 required" for="employee_contact_no">Avatar</label>
+        <div class="col-sm-7">
+            {{ form_widget(form.file) }}
+            {% if employee.avatar is not empty %}
+                <p class = "edit-employee-image">
+                    <a href="{{ employee.avatar }}" target="_blank" class="d-inline-block">
+                        <img src="{{  employee.avatar  | imagine_filter('my_thumb') }}">
+                    </a>
+
+                </p>
+            {% endif %}
+        </div>
+    </div>
+    {{ form_widget(form) }}
+
+    <div class="form-group row">
+        <div class="col-sm-5"></div>
+        <div class="col-sm-7">
+
+            <button type="submit" class="btn btn-primary btn">Save</button>
+            <button type="button" class="btn btn-primary btn" onclick="window.location='/';">Cancel</button>
+        </div>
+    </div>
+    {{ form_end (form) }}
+
+{% endblock %}

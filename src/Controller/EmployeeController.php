@@ -87,7 +87,23 @@ class EmployeeController extends AbstractController
         EmployeeRepository $employeeRepository,
         EntityManagerInterface $entityManager
     ) {
+        $employee = $employeeRepository->find($id);
+        $form = $this->createForm(EmployeeType::class, $employee);
 
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->render(
+            'employee/update.html.twig',
+            array(
+                'form' => $form->createView(),
+                'employee' => $employee,
+            )
+        );
     }
 
     /**
