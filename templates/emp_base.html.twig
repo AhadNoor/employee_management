@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{% block title %}Employee Management {% endblock %}</title>
+
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <div class="container">
+            <a class="nav-item"  style="color: #ffffff">Hello {{ app.user.username }}</a> &nbsp;
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav mr-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_home') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('employee_report') }}">View Report</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('rest_interaction') }}">Rest Interaction</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/api/v1/employee" target="_blank">Employee List REST API</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"  href="{{ path('app_logout') }}">Logout</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main role="main" class="container main">
+    <div class="row">
+        <div class="col-sm-12">
+        {% include 'flash_messages.html.twig' %}
+
+        {% block body %}{% endblock %}
+        </div>
+    </div>
+</main>
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
+
+
+</body>
+</html>
