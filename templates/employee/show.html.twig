@@ -1,0 +1,67 @@
+{% extends 'emp_base.html.twig' %}
+
+{% block title %}Employee Details{% endblock %}
+
+{% block body %}
+    <h3>Employee Details</h3>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <tbody>
+
+            <tr>
+                <th>Name</th>
+                <td>{{ employee.name }}</td>
+            </tr>
+            <tr>
+                <th>Designation</th>
+                <td>{{ employee.designation }}</td>
+            </tr>
+            <tr>
+                <th>Date of Birth</th>
+                <td>{{ employee.dateOfBirth ? employee.dateOfBirth|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Gender</th>
+                <td>{{ employee.gender }}</td>
+            </tr>
+            <tr>
+                <th>Contact No</th>
+                <td>{{ employee.contactNo }}</td>
+            </tr>
+            <tr>
+                <th>Note</th>
+                <td>{{ employee.note }}</td>
+            </tr>
+            {% if employee.avatar is not empty %}
+                <tr>
+                    <th valign="middle" style="vertical-align: middle">Image</th>
+                    <td>
+                        <a href="{{ employee.avatar }}" target="_blank">
+                            <img src="{{ employee.avatar  | imagine_filter('big') }}">
+                        </a>
+
+                    </td>
+                </tr>
+            {% endif %}
+            <tr>
+                <th>Active</th>
+                <td>{{ employee.active ? 'Yes' : 'No' }}</td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <td>
+                    <button type="button" class="btn btn-primary btn" onclick="window.location='/';">Back</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+{% endblock %}
