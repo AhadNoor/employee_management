@@ -29,7 +29,7 @@ class EmployeeController extends AbstractController
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $searhData = $searchForm->getData();
             $employees = $employeeRepository->getQueryForEmployee($searhData);
-        } else{
+        } else {
             $employees = $employeeRepository->findBy(array(), array('id' => 'DESC'));
         }
 
@@ -56,7 +56,25 @@ class EmployeeController extends AbstractController
 
     public function new(Request $request, EntityManagerInterface $entityManager)
     {
+        $employee = new Employee();
 
+        $form = $this->createForm(EmployeeType::class, $employee);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $employee = $form->getData();
+            $entityManager->persist($employee);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->render(
+            'employee/new.html.twig',
+            array(
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
